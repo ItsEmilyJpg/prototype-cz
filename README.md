@@ -30,22 +30,24 @@ Starší verze a seznam změn najdeš v [Releases](https://github.com/ItsEmilyJp
 ## Instalace
 
 1. Hru zavři.
-2. Spusť **`Cestina-do-Prototype.exe`** a vyber **1 — Nainstalovat**.
-3. Spusť hru.
+2. Spusť **`Cestina-do-Prototype.exe`**.
+3. Zkontroluj **složku hry** a klikni na **Nainstalovat**.
+4. Spusť hru.
 
-Instalátor si sám najde hru (i v jiné knihovně Steamu). Kdyby ji nenašel,
-zeptá se na cestu — stačí do okna přetáhnout složku hry.
+Instalátor si sám najde hru na Steamu (i v jiné knihovně). Máš hru jinde,
+třeba z GOGu nebo z krabice? Vyber složku přes **Procházet…** nebo ji do okna
+přetáhni myší.
 
 > Windows může ukázat **„Systém Windows ochránil váš počítač"**. Instalátor
 > není digitálně podepsaný. Klikni na **Další informace → Přesto spustit**.
 
 ### Jen vyzkoušet
 
-Vyber **2 — Zkouška nanečisto**. Instalátor projde všechny kontroly a nic nezapíše.
+Klikni na **Vyzkoušet nanečisto**. Instalátor projde všechny kontroly a nic nezapíše.
 
 ## Odinstalace
 
-Spusť instalátor znovu a vyber **3 — Odinstalovat**. Vrátí originály ze složky
+Spusť instalátor znovu a klikni na **Odinstalovat**. Vrátí originály ze složky
 `_cestina_zaloha` uvnitř hry.
 
 ## Po aktualizaci hry
@@ -66,12 +68,14 @@ instalátor — pozná, co už přeložené je, a nesahá na to zbytečně.
 
 - **Bez dabingu.** Zvuk zůstává anglický, překládají se titulky.
 - **Překlad je strojový**, byť dělaný pečlivě a s jednotným glosářem herních
-  termínů. Když narazíš na kostrbatou formulaci, [otevři issue](../../issues).
-- Testováno na Steam verzi. GOG ani retail vyzkoušené nebyly.
+  termínů. Když narazíš na kostrbatou formulaci, [otevři issue](https://github.com/ItsEmilyJpg/prototype-cz/issues).
+- Testováno na Steam verzi. Jiné verze (GOG, krabice) by měly fungovat, pokud mají
+  stejný formát souborů, ale vyzkoušené nebyly. Když instalátor na tvojí verzi
+  skončí chybou, nic nezapíše — [pošli nám hlášku](https://github.com/ItsEmilyJpg/prototype-cz/issues).
 
 ## Neobsahuje soubory hry
 
-Instalátor nese jen texty překladu a binární rozdíly fontů (doplněné české znaky)
+Instalátor nese jen texty překladu a postup, jak do fontů doplnit české znaky,
 a aplikuje je na tvoji vlastní, legálně nabytou kopii hry. Nic z majetku
 Activisionu se tu nešíří.
 
