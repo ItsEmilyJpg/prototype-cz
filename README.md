@@ -6,6 +6,7 @@
 
 [![Verze](https://img.shields.io/github/v/release/ItsEmilyJpg/prototype-cz?label=verze&color=b91c1c)](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest)
 [![Stažení](https://img.shields.io/github/downloads/ItsEmilyJpg/prototype-cz/total?label=sta%C5%BEen%C3%AD&color=b91c1c)](https://github.com/ItsEmilyJpg/prototype-cz/releases)
+[![Nexus Mods](https://img.shields.io/badge/Nexus%20Mods-Czech%20Translation-DA8E35)](https://www.nexusmods.com/prototype/mods/127?tab=description)
 [![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6)](#instalace)
 [![Překlad: CC BY-NC-SA 4.0](https://img.shields.io/badge/p%C5%99eklad-CC%20BY--NC--SA%204.0-lightgrey)](LICENCE.md)
 [![Instalátor: MIT](https://img.shields.io/badge/instal%C3%A1tor-MIT-lightgrey)](LICENCE.md)
@@ -14,7 +15,7 @@
 
 ### [⬇ Stáhnout instalátor](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.exe)
 
-<sub>Cestina-do-Prototype.exe · 1,7 MB · [všechny verze a změny](https://github.com/ItsEmilyJpg/prototype-cz/releases)</sub>
+<sub>Cestina-do-Prototype.exe · 1,7 MB · [všechny verze a změny](https://github.com/ItsEmilyJpg/prototype-cz/releases) · také na [Nexus Mods](https://www.nexusmods.com/prototype/mods/127?tab=description)</sub>
 
 </div>
 
@@ -142,6 +143,7 @@ cutscenes, Web of Intrigue videos and subtitles for every spoken line, with Czec
 characters added to the game fonts.
 
 Download [Cestina-do-Prototype.exe](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.exe),
+(also on [Nexus Mods](https://www.nexusmods.com/prototype/mods/127?tab=description)),
 close the game, run it and click **Nainstalovat** (Install). The game language must
 be set to English. Originals are backed up; **Odinstalovat** (Uninstall) restores them.
 The repository contains no game files — only the Czech texts (CC BY-NC-SA 4.0)
