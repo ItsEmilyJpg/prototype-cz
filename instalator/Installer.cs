@@ -8,7 +8,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
@@ -28,9 +27,6 @@ static class Program
     static Action<string, LogLevel> Log = ConsoleLog;
     static Action<int, int> Progress = delegate { };
 
-    [DllImport("kernel32.dll", SetLastError = true)]
-    static extern bool AttachConsole(int dwProcessId);
-    const int ATTACH_PARENT_PROCESS = -1;
 
     // ---------------------------------------------------------------- entry point
     [STAThread]
@@ -45,10 +41,19 @@ static class Program
     // console mode - for CI and power users, behavior/exit codes must not change
     static int RunCli(string[] args)
     {
-        // must run before the first access to Console - otherwise GetStdHandle gets cached already
-        try { AttachConsole(ATTACH_PARENT_PROCESS); } catch { }
-        try { Console.OutputEncoding = Encoding.UTF8; } catch { }
-        try { Console.Title = "Čeština do Prototype " + AppVersion.Text; } catch { }
+        // The exe is a GUI (winexe) app: console output is visible only when stdout is redirected,
+        // e.g. in CI or `Cestina-do-Prototype.exe --dry-run | Out-Host`. No console attaching on purpose.
+        // Without a console, Console.OutputEncoding can't be set, so write UTF-8 to the raw stream instead.
+        try
+        {
+            var stdout = new StreamWriter(Console.OpenStandardOutput(), new UTF8Encoding(false));
+            stdout.AutoFlush = true;
+            Console.SetOut(stdout);
+            var stderr = new StreamWriter(Console.OpenStandardError(), new UTF8Encoding(false));
+            stderr.AutoFlush = true;
+            Console.SetError(stderr);
+        }
+        catch { }
 
         dryRun = args.Contains("--nanecisto") || args.Contains("--dry-run");
         bool uninstall = args.Contains("--odinstalovat") || args.Contains("--uninstall");
@@ -68,19 +73,11 @@ static class Program
             return Finish(3);
         }
 
+        // no self-elevation (a relaunch with "runas" looks suspicious to antivirus heuristics)
         if (!dryRun && !IsAdmin() && !CanWrite(game))
         {
-            Warning("Zápis do složky hry potřebuje práva správce. Spouštím znovu v novém okně...");
-            try
-            {
-                var psi = new ProcessStartInfo(Process.GetCurrentProcess().MainModule.FileName);
-                psi.Arguments = "\"" + game.TrimEnd('\\') + "\"" + (uninstall ? " --odinstalovat" : " --instalovat");
-                psi.WorkingDirectory = Directory.GetCurrentDirectory();
-                psi.UseShellExecute = true; psi.Verb = "runas";
-                Process.Start(psi);
-                return 0;
-            }
-            catch { Error("Nepodařilo se získat práva správce."); return Finish(3); }
+            Error("Do složky hry nejde zapisovat. Spusť instalátor jako správce.");
+            return Finish(3);
         }
 
         try { return uninstall ? Uninstall(game) : Install(game); }
@@ -402,18 +399,12 @@ static class Program
         catch { return false; }
     }
 
+    // Any running copy of the game blocks writing. Checking only the process name avoids
+    // reading other processes' module paths, which antivirus heuristics dislike.
     static bool GameRunning(string game)
     {
-        string prefix = Path.GetFullPath(game).TrimEnd('\\') + "\\";
-        foreach (var p in Process.GetProcessesByName("prototypef"))
-        {
-            try
-            {
-                if (p.MainModule.FileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) return true;
-            }
-            catch { return true; }   // can't determine the path, better assume it's the one
-        }
-        return false;
+        try { return Process.GetProcessesByName("prototypef").Length > 0; }
+        catch { return true; }
     }
 
     static bool BytesEqual(byte[] a, byte[] b)
@@ -666,25 +657,9 @@ static class Program
                 }
                 if (!IsAdmin() && !CanWrite(game))
                 {
-                    DialogResult r = MessageBox.Show(this,
-                        "Zápis do složky hry potřebuje práva správce.\nSpustit instalátor znovu jako správce?",
-                        "Čeština do Prototype", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (r == DialogResult.Yes)
-                    {
-                        try
-                        {
-                            var psi = new ProcessStartInfo(Process.GetCurrentProcess().MainModule.FileName);
-                            psi.Arguments = "--gui \"" + game.TrimEnd('\\') + "\"";
-                            psi.UseShellExecute = true; psi.Verb = "runas";
-                            Process.Start(psi);
-                            Close();
-                        }
-                        catch
-                        {
-                            MessageBox.Show(this, "Nepodařilo se získat práva správce.", "Čeština do Prototype",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
+                    MessageBox.Show(this,
+                        "Do složky hry nejde zapisovat.\n\nZavři instalátor, klikni na něj pravým tlačítkem a vyber „Spustit jako správce“.",
+                        "Čeština do Prototype", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }

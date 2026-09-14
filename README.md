@@ -84,6 +84,13 @@ instalátor si můžeš [sestavit sám](#sestavení-ze-zdrojáku).
 </details>
 
 <details>
+<summary><b>Instalátor hlásí, že do složky hry nejde zapisovat</b></summary>
+
+Hra je nainstalovaná ve složce, kam Windows bez práv správce nepustí.
+Zavři instalátor, klikni na něj pravým tlačítkem a vyber **Spustit jako správce**.
+</details>
+
+<details>
 <summary><b>Mám hru z GOGu nebo z krabice</b></summary>
 
 Vyber složku hry přes **Procházet…**. Pokud má tvoje verze stejný formát
