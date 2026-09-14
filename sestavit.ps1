@@ -20,18 +20,27 @@ New-Item -ItemType Directory -Force (Split-Path $Output) | Out-Null
 $parts = @(($Version -replace '[^0-9.]', '').Split('.') | Where-Object { $_ -ne '' }) + @('0', '0', '0', '0')
 $asm = ($parts | Select-Object -First 4) -join '.'
 $versionCs = Join-Path ([IO.Path]::GetTempPath()) ('PrototypeCZ_Version_' + [Guid]::NewGuid().ToString('N') + '.cs')
+# file properties shown in Explorer; a complete version resource also helps antivirus reputation
 $content = @(
     'using System.Reflection;'
+    'using System.Resources;'
     '[assembly: AssemblyTitle("Čeština do Prototype")]'
+    '[assembly: AssemblyDescription("Czech fan translation installer for Prototype (2009)")]'
     '[assembly: AssemblyProduct("Čeština do Prototype")]'
+    '[assembly: AssemblyCompany("ItsEmilyJpg")]'
+    '[assembly: AssemblyCopyright("Copyright (c) 2026 ItsEmilyJpg. MIT License.")]'
+    '[assembly: NeutralResourcesLanguage("cs-CZ")]'
     "[assembly: AssemblyVersion(""$asm"")]"
     "[assembly: AssemblyFileVersion(""$asm"")]"
+    "[assembly: AssemblyInformationalVersion(""$Version"")]"
     "static class AppVersion { public const string Text = ""$Version""; }"
 ) -join "`r`n"
 [IO.File]::WriteAllText($versionCs, $content, (New-Object Text.UTF8Encoding $true))
 
 $cscArgs = @('/nologo', '/optimize+', '/warn:4', '/codepage:65001', '/target:winexe',
-          '/r:System.Windows.Forms.dll', '/r:System.Drawing.dll', "/out:$Output")
+          '/r:System.Windows.Forms.dll', '/r:System.Drawing.dll', "/out:$Output",
+          "/win32icon:$(Join-Path $root 'instalator\ikona.ico')",
+          "/win32manifest:$(Join-Path $root 'instalator\app.manifest')")
 # translation data + optional font verification deltas (private repo only)
 $data = @(Get-ChildItem (Join-Path $root 'preklad') -Filter *.tsv -File)
 $verification = Join-Path $root 'instalator\overeni'

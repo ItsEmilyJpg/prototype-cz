@@ -32,9 +32,6 @@ static class Program
     static extern bool AttachConsole(int dwProcessId);
     const int ATTACH_PARENT_PROCESS = -1;
 
-    [DllImport("user32.dll")]
-    static extern bool SetProcessDPIAware();
-
     // ---------------------------------------------------------------- entry point
     [STAThread]
     static int Main(string[] args)
@@ -94,7 +91,7 @@ static class Program
     static int RunGui(string[] args)
     {
         guiMode = true;
-        try { SetProcessDPIAware(); } catch { }
+        // DPI awareness is declared in app.manifest
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
 
@@ -492,6 +489,7 @@ static class Program
         public MainWindow(string initialPath)
         {
             Text = "Čeština do Prototype " + AppVersion.Text;
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath); } catch { }
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = SystemFonts.MessageBoxFont;
             StartPosition = FormStartPosition.CenterScreen;
