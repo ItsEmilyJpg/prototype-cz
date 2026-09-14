@@ -1,5 +1,5 @@
 // Czech translation for Prototype - installer
-// One .exe, the translation data is embedded in it as resources (csc /resource).
+// Small .exe; the translation data is read from the data\ folder next to it.
 // Build: .github/workflows/release.yml
 using System;
 using System.Collections.Generic;
@@ -60,6 +60,12 @@ static class Program
 
         PrintHeader();
 
+        if (!uninstall && !TranslationData.IsComplete())
+        {
+            Error(TranslationData.MissingMessage.Replace("\n", " "));
+            return Finish(7);
+        }
+
         string game = args.FirstOrDefault(a => !a.StartsWith("--") && Directory.Exists(a));
         if (game == null) game = FindGame();
         if (game == null) { Error("Nenašel jsem složku s hrou."); return Finish(2); }
@@ -91,6 +97,13 @@ static class Program
         // DPI awareness is declared in app.manifest
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
+
+        // typically the exe was started straight from the zip, which extracts only the exe to a temp folder
+        if (!TranslationData.IsComplete())
+        {
+            MessageBox.Show(TranslationData.MissingMessage, "Čeština do Prototype", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return 7;
+        }
 
         string prefilled = args.FirstOrDefault(a => !a.StartsWith("--") && Directory.Exists(a));
         if (prefilled == null) prefilled = FindGame();
@@ -258,7 +271,7 @@ static class Program
         {
             string target = Path.Combine(game, "art", "hud", name);
             // verification deltas are not part of the public source tree, without them it just skips comparison
-            byte[] delta = EmbeddedData.Exists(name + ".delta") ? EmbeddedData.Read(name + ".delta") : null;
+            byte[] delta = TranslationData.Exists(name + ".delta") ? TranslationData.Read(name + ".delta") : null;
             yield return new FileTask
             {
                 FilePath = target, Name = name, Category = "fonty", Missing = !File.Exists(target),
@@ -283,7 +296,7 @@ static class Program
     static IEnumerable<FileTask> TextTasks(string game, string resourceName, string subfolder, string category)
     {
         var byFile = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
-        foreach (var r in Tsv.Read(EmbeddedData.Read(resourceName)))
+        foreach (var r in Tsv.Read(TranslationData.Read(resourceName)))
         {
             Dictionary<string, string> d;
             if (!byFile.TryGetValue(r.Item1, out d)) { d = new Dictionary<string, string>(); byFile[r.Item1] = d; }
@@ -304,7 +317,7 @@ static class Program
     static IEnumerable<FileTask> SubtitleTasks(string game, string resourceName)
     {
         string root = Path.Combine(game, "audio", "english", "AudioFile");
-        foreach (var r in Tsv.Read(EmbeddedData.Read(resourceName)))
+        foreach (var r in Tsv.Read(TranslationData.Read(resourceName)))
         {
             string target = Path.Combine(root, r.Item1.Replace('/', '\\'));
             string text = r.Item3;
@@ -740,24 +753,37 @@ static class Program
     }
 }
 
-// ---------------------------------------------------------------- embedded data
-static class EmbeddedData
+// ---------------------------------------------------------------- translation data
+// The translation lives in a "data" folder next to the exe (plain TSV files, optional .delta files).
+// Keeping it out of the exe makes the installer small and much less suspicious to antivirus heuristics.
+static class TranslationData
 {
-    static readonly Assembly CurrentAssembly = typeof(EmbeddedData).Assembly;
+    static readonly string[] Required = { "hud.tsv", "mezihry.tsv", "filmy.tsv", "titulky.tsv" };
+
+    public const string MissingMessage =
+        "Vedle instalátoru chybí složka „data“ s překladem.\n\n" +
+        "Nejdřív rozbal celý zip (pravým tlačítkem → Extrahovat vše) a spusť " +
+        "Cestina-do-Prototype.exe z rozbalené složky.";
+
+    public static string Folder
+    {
+        get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data"); }
+    }
+
+    public static bool IsComplete()
+    {
+        return Required.All(Exists);
+    }
 
     public static bool Exists(string name)
     {
-        return CurrentAssembly.GetManifestResourceNames().Contains(name);
+        return File.Exists(Path.Combine(Folder, name));
     }
 
     public static byte[] Read(string name)
     {
-        using (var s = CurrentAssembly.GetManifestResourceStream(name))
-        {
-            if (s == null) throw new Exception("v instalátoru chybí data: " + name);
-            var ms = new MemoryStream();
-            s.CopyTo(ms);
-            return ms.ToArray();
-        }
+        string path = Path.Combine(Folder, name);
+        if (!File.Exists(path)) throw new Exception("v instalátoru chybí data: " + name);
+        return File.ReadAllBytes(path);
     }
 }

@@ -1,11 +1,12 @@
-﻿# Builds Cestina-do-Prototype.exe from instalator\*.cs and the translations in preklad\*.tsv.
+﻿# Builds Cestina-do-Prototype.exe from instalator\*.cs and puts the translations (preklad\*.tsv)
+# into a data\ folder next to it - the installer reads them from there.
 # Just needs Windows with .NET Framework 4 (included in Windows 10 and 11), nothing to install.
 #
 #   powershell -ExecutionPolicy Bypass -File sestavit.ps1
 #   powershell -ExecutionPolicy Bypass -File sestavit.ps1 -Version 1.1 -Output build\Cestina-do-Prototype.exe
 param(
     [string]$Version = 'dev',
-    [string]$Output = 'Cestina-do-Prototype.exe'
+    [string]$Output = 'build\Cestina-do-Prototype.exe'
 )
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
@@ -14,7 +15,8 @@ if (-not (Test-Path $csc)) { $csc = Join-Path $env:WINDIR 'Microsoft.NET\Framewo
 if (-not (Test-Path $csc)) { throw 'Could not find csc.exe from .NET Framework 4.' }
 
 if (-not [IO.Path]::IsPathRooted($Output)) { $Output = Join-Path (Get-Location) $Output }
-New-Item -ItemType Directory -Force (Split-Path $Output) | Out-Null
+$outDir = Split-Path $Output
+New-Item -ItemType Directory -Force $outDir | Out-Null
 
 # version number for the file properties: "1.1" -> 1.1.0.0, "dev" -> 0.0.0.0
 $parts = @(($Version -replace '[^0-9.]', '').Split('.') | Where-Object { $_ -ne '' }) + @('0', '0', '0', '0')
@@ -37,15 +39,12 @@ $content = @(
 ) -join "`r`n"
 [IO.File]::WriteAllText($versionCs, $content, (New-Object Text.UTF8Encoding $true))
 
+# The translation is NOT embedded in the exe: a small exe with plain data files next to it
+# gets far fewer antivirus false positives than a large exe carrying its own payload.
 $cscArgs = @('/nologo', '/optimize+', '/warn:4', '/codepage:65001', '/target:winexe',
           '/r:System.Windows.Forms.dll', '/r:System.Drawing.dll', "/out:$Output",
           "/win32icon:$(Join-Path $root 'instalator\ikona.ico')",
           "/win32manifest:$(Join-Path $root 'instalator\app.manifest')")
-# translation data + optional font verification deltas (private repo only)
-$data = @(Get-ChildItem (Join-Path $root 'preklad') -Filter *.tsv -File)
-$verification = Join-Path $root 'instalator\overeni'
-if (Test-Path $verification) { $data += Get-ChildItem $verification -Filter *.delta -File }
-$cscArgs += $data | ForEach-Object { "/resource:$($_.FullName),$($_.Name)" }
 $cscArgs += 'Installer.cs', 'Formats.cs', 'FontPatcher.cs' | ForEach-Object { Join-Path $root "instalator\$_" }
 $cscArgs += $versionCs
 
@@ -53,7 +52,16 @@ try {
     & $csc $cscArgs
     if ($LASTEXITCODE -ne 0) { throw "Compilation failed (code $LASTEXITCODE)." }
 }
-finally { Remove-Item $versionCs -ErrorAction SilentlyContinue }
+finally { [IO.File]::Delete($versionCs) }
+
+# translation data + optional font verification deltas (private repo only) go to data\ next to the exe
+$dataDir = Join-Path $outDir 'data'
+New-Item -ItemType Directory -Force $dataDir | Out-Null
+Get-ChildItem $dataDir -File | ForEach-Object { [IO.File]::Delete($_.FullName) }
+$data = @(Get-ChildItem (Join-Path $root 'preklad') -Filter *.tsv -File)
+$verification = Join-Path $root 'instalator\overeni'
+if (Test-Path $verification) { $data += Get-ChildItem $verification -Filter *.delta -File }
+$data | ForEach-Object { Copy-Item $_.FullName $dataDir }
 
 $f = Get-Item $Output
-Write-Host ("Done: {0} ({1:N0} kB, version {2}, {3} data files)" -f $f.FullName, ($f.Length / 1KB), $Version, $data.Count)
+Write-Host ("Done: {0} ({1:N0} kB, version {2}) + {3} data files in {4}" -f $f.FullName, ($f.Length / 1KB), $Version, $data.Count, $dataDir)

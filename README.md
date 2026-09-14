@@ -13,9 +13,9 @@
 
 <img src="obrazky/menu-gentek.jpg" alt="Menu GENTEK v češtině" width="820">
 
-### [⬇ Stáhnout instalátor](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.exe)
+### [⬇ Stáhnout češtinu](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.zip)
 
-<sub>Cestina-do-Prototype.exe · 1,7 MB · [všechny verze a změny](https://github.com/ItsEmilyJpg/prototype-cz/releases) · také na [Nexus Mods](https://www.nexusmods.com/prototype/mods/127?tab=description)</sub>
+<sub>Cestina-do-Prototype.zip · 0,6 MB · [všechny verze a změny](https://github.com/ItsEmilyJpg/prototype-cz/releases) · také na [Nexus Mods](https://www.nexusmods.com/prototype/mods/127?tab=description)</sub>
 
 </div>
 
@@ -51,7 +51,7 @@ Celkem přes 100 tisíc slov. Dabing zůstává anglický.
 [PrototypeFix](https://www.nexusmods.com/prototype/mods/52) je doporučený, ale není podmínka.
 
 1. Zavři hru.
-2. Spusť **Cestina-do-Prototype.exe**.
+2. Rozbal zip a ve složce **Cestina-do-Prototype** spusť **Cestina-do-Prototype.exe**.
 3. Zkontroluj složku hry a klikni na **Nainstalovat**.
 4. Hotovo — spusť hru.
 
@@ -81,6 +81,13 @@ přes **Procházet…** nebo přetažením složky do okna.
 Instalátor není digitálně podepsaný, proto ho SmartScreen nezná. Klikni na
 **Další informace → Přesto spustit**. Zdrojový kód je v tomhle repozitáři a
 instalátor si můžeš [sestavit sám](#sestavení-ze-zdrojáku).
+</details>
+
+<details>
+<summary><b>Instalátor hlásí, že chybí složka „data“</b></summary>
+
+Spustil/a jsi ho přímo ze zipu. Zip nejdřív rozbal (pravým tlačítkem → **Extrahovat vše**)
+a spusť instalátor z rozbalené složky. Složka `data` s překladem musí zůstat vedle něj.
 </details>
 
 <details>
@@ -142,6 +149,8 @@ Stačí Windows 10 nebo 11, nic se neinstaluje — kompilátor je součástí .N
 powershell -ExecutionPolicy Bypass -File sestavit.ps1
 ```
 
+Vznikne `build\Cestina-do-Prototype.exe` a vedle něj složka `build\data` s překladem.
+
 <details>
 <summary><b>English</b></summary>
 
@@ -149,9 +158,9 @@ Complete Czech translation of **Prototype** (2009, Steam): menus, HUD, missions,
 cutscenes, Web of Intrigue videos and subtitles for every spoken line, with Czech
 characters added to the game fonts.
 
-Download [Cestina-do-Prototype.exe](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.exe),
+Download [Cestina-do-Prototype.zip](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.zip),
 (also on [Nexus Mods](https://www.nexusmods.com/prototype/mods/127?tab=description)),
-close the game, run it and click **Nainstalovat** (Install). The game language must
+close the game, extract the zip, run Cestina-do-Prototype.exe from the extracted folder and click **Nainstalovat** (Install). The game language must
 be set to English. Originals are backed up; **Odinstalovat** (Uninstall) restores them.
 The repository contains no game files — only the Czech texts (CC BY-NC-SA 4.0)
 and the installer source (MIT).

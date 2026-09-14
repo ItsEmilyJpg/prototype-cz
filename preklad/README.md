@@ -1,7 +1,7 @@
 # Texty překladu
 
 Kompletní český překlad hry Prototype (2009). Jen čeština — žádné anglické texty
-ani soubory hry. Instalátor si tyhle soubory přibalí do `.exe` a zapíše je do
+ani soubory hry. Instalátor tyhle soubory čte ze složky `data` vedle `.exe` a zapíše je do
 anglické jazykové větve hry.
 
 | soubor | co obsahuje | kam ve hře patří |
