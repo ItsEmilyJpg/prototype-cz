@@ -108,8 +108,9 @@ Ne. Čeština upravuje existující soubory hry, nepřidává nové. Použij ins
 <summary><b>Jak vznikl překlad?</b></summary>
 
 Formáty hry (P3D textbible, titulky u zvuků, Scaleform fonty) byly zpětně
-rozebrány od nuly. Překlad vznikl s pomocí AI, s jednotným glosářem herních
-termínů a kontrolou ve hře. Když narazíš na kostrbatou větu, pošli
+rozebrány od nuly. Překlad vznikl s pomocí AI podle jednotného glosáře herních
+termínů. Ve hře jsou ověřené menu a HUD, zbytek zatím neprošel lidskou
+korekturou. Když narazíš na kostrbatou větu, pošli
 [issue](https://github.com/ItsEmilyJpg/prototype-cz/issues) — oprava je
 otázka jednoho řádku.
 </details>
