@@ -1,50 +1,50 @@
-﻿# Sestavi Cestina-do-Prototype.exe z instalator\*.cs a prekladu v preklad\*.tsv.
-# Staci Windows s .NET Frameworkem 4 (je soucasti Windows 10 a 11), nic se neinstaluje.
+﻿# Builds Cestina-do-Prototype.exe from instalator\*.cs and the translations in preklad\*.tsv.
+# Just needs Windows with .NET Framework 4 (included in Windows 10 and 11), nothing to install.
 #
 #   powershell -ExecutionPolicy Bypass -File sestavit.ps1
-#   powershell -ExecutionPolicy Bypass -File sestavit.ps1 -Verze 1.1 -Vystup build\Cestina-do-Prototype.exe
+#   powershell -ExecutionPolicy Bypass -File sestavit.ps1 -Version 1.1 -Output build\Cestina-do-Prototype.exe
 param(
-    [string]$Verze = 'dev',
-    [string]$Vystup = 'Cestina-do-Prototype.exe'
+    [string]$Version = 'dev',
+    [string]$Output = 'Cestina-do-Prototype.exe'
 )
 $ErrorActionPreference = 'Stop'
-$koren = $PSScriptRoot
+$root = $PSScriptRoot
 $csc = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
 if (-not (Test-Path $csc)) { $csc = Join-Path $env:WINDIR 'Microsoft.NET\Framework\v4.0.30319\csc.exe' }
-if (-not (Test-Path $csc)) { throw 'Nenasel jsem csc.exe z .NET Frameworku 4.' }
+if (-not (Test-Path $csc)) { throw 'Could not find csc.exe from .NET Framework 4.' }
 
-if (-not [IO.Path]::IsPathRooted($Vystup)) { $Vystup = Join-Path (Get-Location) $Vystup }
-New-Item -ItemType Directory -Force (Split-Path $Vystup) | Out-Null
+if (-not [IO.Path]::IsPathRooted($Output)) { $Output = Join-Path (Get-Location) $Output }
+New-Item -ItemType Directory -Force (Split-Path $Output) | Out-Null
 
-# cislo verze do vlastnosti souboru: "1.1" -> 1.1.0.0, "dev" -> 0.0.0.0
-$cisla = @(($Verze -replace '[^0-9.]', '').Split('.') | Where-Object { $_ -ne '' }) + @('0', '0', '0', '0')
-$asm = ($cisla | Select-Object -First 4) -join '.'
-$verzeCs = Join-Path ([IO.Path]::GetTempPath()) ('PrototypeCZ_Verze_' + [Guid]::NewGuid().ToString('N') + '.cs')
-$obsah = @(
+# version number for the file properties: "1.1" -> 1.1.0.0, "dev" -> 0.0.0.0
+$parts = @(($Version -replace '[^0-9.]', '').Split('.') | Where-Object { $_ -ne '' }) + @('0', '0', '0', '0')
+$asm = ($parts | Select-Object -First 4) -join '.'
+$versionCs = Join-Path ([IO.Path]::GetTempPath()) ('PrototypeCZ_Version_' + [Guid]::NewGuid().ToString('N') + '.cs')
+$content = @(
     'using System.Reflection;'
     '[assembly: AssemblyTitle("Čeština do Prototype")]'
     '[assembly: AssemblyProduct("Čeština do Prototype")]'
     "[assembly: AssemblyVersion(""$asm"")]"
     "[assembly: AssemblyFileVersion(""$asm"")]"
-    "static class Verze { public const string Text = ""$Verze""; }"
+    "static class AppVersion { public const string Text = ""$Version""; }"
 ) -join "`r`n"
-[IO.File]::WriteAllText($verzeCs, $obsah, (New-Object Text.UTF8Encoding $true))
+[IO.File]::WriteAllText($versionCs, $content, (New-Object Text.UTF8Encoding $true))
 
-$argy = @('/nologo', '/optimize+', '/warn:4', '/codepage:65001', '/target:winexe',
-          '/r:System.Windows.Forms.dll', '/r:System.Drawing.dll', "/out:$Vystup")
-# preklad + volitelne overovaci rozdily fontu (jen v soukromem repu)
-$data = @(Get-ChildItem (Join-Path $koren 'preklad') -Filter *.tsv -File)
-$overeni = Join-Path $koren 'instalator\overeni'
-if (Test-Path $overeni) { $data += Get-ChildItem $overeni -Filter *.delta -File }
-$argy += $data | ForEach-Object { "/resource:$($_.FullName),$($_.Name)" }
-$argy += 'Instalator.cs', 'Pomocne.cs', 'Fonty.cs' | ForEach-Object { Join-Path $koren "instalator\$_" }
-$argy += $verzeCs
+$cscArgs = @('/nologo', '/optimize+', '/warn:4', '/codepage:65001', '/target:winexe',
+          '/r:System.Windows.Forms.dll', '/r:System.Drawing.dll', "/out:$Output")
+# translation data + optional font verification deltas (private repo only)
+$data = @(Get-ChildItem (Join-Path $root 'preklad') -Filter *.tsv -File)
+$verification = Join-Path $root 'instalator\overeni'
+if (Test-Path $verification) { $data += Get-ChildItem $verification -Filter *.delta -File }
+$cscArgs += $data | ForEach-Object { "/resource:$($_.FullName),$($_.Name)" }
+$cscArgs += 'Installer.cs', 'Formats.cs', 'FontPatcher.cs' | ForEach-Object { Join-Path $root "instalator\$_" }
+$cscArgs += $versionCs
 
 try {
-    & $csc $argy
-    if ($LASTEXITCODE -ne 0) { throw "Kompilace selhala (kod $LASTEXITCODE)." }
+    & $csc $cscArgs
+    if ($LASTEXITCODE -ne 0) { throw "Compilation failed (code $LASTEXITCODE)." }
 }
-finally { Remove-Item $verzeCs -ErrorAction SilentlyContinue }
+finally { Remove-Item $versionCs -ErrorAction SilentlyContinue }
 
-$f = Get-Item $Vystup
-Write-Host ("Hotovo: {0} ({1:N0} kB, verze {2}, dat {3})" -f $f.FullName, ($f.Length / 1KB), $Verze, $data.Count)
+$f = Get-Item $Output
+Write-Host ("Done: {0} ({1:N0} kB, version {2}, {3} data files)" -f $f.FullName, ($f.Length / 1KB), $Version, $data.Count)
