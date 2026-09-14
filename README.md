@@ -10,7 +10,7 @@
 [![Překlad: CC BY-NC-SA 4.0](https://img.shields.io/badge/p%C5%99eklad-CC%20BY--NC--SA%204.0-lightgrey)](LICENCE.md)
 [![Instalátor: MIT](https://img.shields.io/badge/instal%C3%A1tor-MIT-lightgrey)](LICENCE.md)
 
-<img src="obrazky/menu.jpg" alt="Menu GENTEK v češtině" width="820">
+<img src="obrazky/menu-gentek.jpg" alt="Menu GENTEK v češtině" width="820">
 
 ### [⬇ Stáhnout instalátor](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.exe)
 
@@ -60,7 +60,7 @@ přes **Procházet…** nebo přetažením složky do okna.
 **Vyzkoušet nanečisto** projde všechny kontroly a nic nezapíše.
 **Odinstalovat** vrátí původní soubory.
 
-<p align="center"><img src="obrazky/instalator.png" alt="Okno instalátoru" width="560"></p>
+<p align="center"><img src="obrazky/instalator-1.0.3.png" alt="Okno instalátoru" width="560"></p>
 
 ## Bezpečnost
 
