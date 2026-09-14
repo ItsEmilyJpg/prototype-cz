@@ -45,8 +45,6 @@ Celkem přes 100 tisíc slov. Dabing zůstává anglický.
 
 ## Instalace
 
-<img src="obrazky/instalator.png" alt="Okno instalátoru" width="380" align="right">
-
 **Potřebuješ:** Prototype na Steamu a **jazyk hry nastavený na angličtinu**
 (čeština nahrazuje anglickou jazykovou větev).
 [PrototypeFix](https://www.nexusmods.com/prototype/mods/52) je doporučený, ale není podmínka.
@@ -62,7 +60,7 @@ přes **Procházet…** nebo přetažením složky do okna.
 **Vyzkoušet nanečisto** projde všechny kontroly a nic nezapíše.
 **Odinstalovat** vrátí původní soubory.
 
-<br clear="right">
+<p align="center"><img src="obrazky/instalator.png" alt="Okno instalátoru" width="560"></p>
 
 ## Bezpečnost
 
