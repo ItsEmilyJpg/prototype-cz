@@ -1,104 +1,156 @@
-# Čeština do Prototype (2009)
+<div align="center">
 
-Kompletní český překlad hry **Prototype** od Radical Entertainment pro aktuální
-verzi na Steamu — včetně diakritiky.
+# Čeština do Prototype
 
-| co | rozsah |
-|---|---|
-| menu, mise, cíle, popisy schopností, rady, Síť intrik, HUD | 3 127 textů |
-| vnitroherní cutscény | 325 replik ve 45 scénách |
-| filmové cutscény a videa Sítě intrik | 632 replik ve 143 souborech |
-| titulky ke všem mluveným replikám | 14 318 souborů |
+**Kompletní český překlad hry Prototype (2009) včetně diakritiky**
 
-Celkem přes **100 tisíc slov**. Součástí je i úprava herních fontů, protože
-anglický originál české znaky neobsahuje.
+[![Verze](https://img.shields.io/github/v/release/ItsEmilyJpg/prototype-cz?label=verze&color=b91c1c)](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest)
+[![Stažení](https://img.shields.io/github/downloads/ItsEmilyJpg/prototype-cz/total?label=sta%C5%BEen%C3%AD&color=b91c1c)](https://github.com/ItsEmilyJpg/prototype-cz/releases)
+[![Windows](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6)](#instalace)
+[![Překlad: CC BY-NC-SA 4.0](https://img.shields.io/badge/p%C5%99eklad-CC%20BY--NC--SA%204.0-lightgrey)](LICENCE.md)
+[![Instalátor: MIT](https://img.shields.io/badge/instal%C3%A1tor-MIT-lightgrey)](LICENCE.md)
+
+<img src="obrazky/menu.jpg" alt="Menu GENTEK v češtině" width="820">
+
+### [⬇ Stáhnout instalátor](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.exe)
+
+<sub>Cestina-do-Prototype.exe · 1,7 MB · [všechny verze a změny](https://github.com/ItsEmilyJpg/prototype-cz/releases)</sub>
+
+</div>
 
 ---
 
-## Stažení
+## Co je přeloženo
 
-**[⬇ Stáhnout Cestina-do-Prototype.exe](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.exe)**
+| | rozsah |
+|---|---|
+| **Menu, HUD a mise** — cíle, schopnosti, rady, Síť intrik | 3 127 textů |
+| **Vnitroherní cutscény** | 325 replik ve 45 scénách |
+| **Filmové cutscény a videa Sítě intrik** | 632 replik ve 143 souborech |
+| **Titulky ke všem mluveným replikám** | 14 318 souborů |
+| **Fonty** — doplněné znaky á č ď é ě í ň ó ř š ť ú ů ý ž | 5 fontů |
 
-Starší verze a seznam změn najdeš v [Releases](https://github.com/ItsEmilyJpg/prototype-cz/releases).
+Celkem přes 100 tisíc slov. Dabing zůstává anglický.
 
-## Co potřebuješ
-
-- **Prototype na Steamu**, aktuální verze
-- **Jazyk hry nastavený na angličtinu** — čeština nahrazuje anglickou větev
-- [PrototypeFix](https://www.nexusmods.com/prototype/mods/52) od emoose — doporučeno, ale není podmínka
+<table>
+  <tr>
+    <td><img src="obrazky/hud.jpg" alt="HUD s úkolem mise"></td>
+    <td><img src="obrazky/schopnosti.jpg" alt="Výběr schopností"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>HUD a úkol mise</sub></td>
+    <td align="center"><sub>Výběr schopností</sub></td>
+  </tr>
+</table>
 
 ## Instalace
 
-1. Hru zavři.
-2. Spusť **`Cestina-do-Prototype.exe`**.
-3. Zkontroluj **složku hry** a klikni na **Nainstalovat**.
-4. Spusť hru.
+<img src="obrazky/instalator.png" alt="Okno instalátoru" width="380" align="right">
 
-Instalátor si sám najde hru na Steamu (i v jiné knihovně). Máš hru jinde,
-třeba z GOGu nebo z krabice? Vyber složku přes **Procházet…** nebo ji do okna
-přetáhni myší.
+**Potřebuješ:** Prototype na Steamu a **jazyk hry nastavený na angličtinu**
+(čeština nahrazuje anglickou jazykovou větev).
+[PrototypeFix](https://www.nexusmods.com/prototype/mods/52) je doporučený, ale není podmínka.
 
-> Windows může ukázat **„Systém Windows ochránil váš počítač"**. Instalátor
-> není digitálně podepsaný. Klikni na **Další informace → Přesto spustit**.
+1. Zavři hru.
+2. Spusť **Cestina-do-Prototype.exe**.
+3. Zkontroluj složku hry a klikni na **Nainstalovat**.
+4. Hotovo — spusť hru.
 
-### Jen vyzkoušet
+Hru na Steamu instalátor najde sám, i v jiné knihovně. Jinou kopii vybereš
+přes **Procházet…** nebo přetažením složky do okna.
 
-Klikni na **Vyzkoušet nanečisto**. Instalátor projde všechny kontroly a nic nezapíše.
+**Vyzkoušet nanečisto** projde všechny kontroly a nic nezapíše.
+**Odinstalovat** vrátí původní soubory.
 
-## Odinstalace
-
-Spusť instalátor znovu a klikni na **Odinstalovat**. Vrátí originály ze složky
-`_cestina_zaloha` uvnitř hry.
-
-## Po aktualizaci hry
-
-Steam při aktualizaci přepíše soubory zpátky na anglické. Stačí znovu spustit
-instalátor — pozná, co už přeložené je, a nesahá na to zbytečně.
-
----
+<br clear="right">
 
 ## Bezpečnost
 
-- Instalátor všechno nejdřív přepočítá v paměti a **zapisuje, až když projde
-  autotest u všech souborů**. Na jiné verzi hry skončí hláškou a nepřepíše ani bajt.
-- Originály zálohuje do `_cestina_zaloha` uvnitř hry.
-- Sahá jen na soubory s texty a fonty. **Mody, PrototypeFix ani ReShade nemění.**
+- **Nic nezapíše, dokud si není jistý.** Všechny změny nejdřív připraví v paměti
+  a zapisuje, až když autotest projde u každého souboru. Na nepodporované verzi
+  hry skončí hláškou a nezmění ani bajt.
+- **Zálohuje originály** do složky `_cestina_zaloha` uvnitř hry.
+- **Sahá jen na texty a fonty.** Mody, PrototypeFix ani ReShade nemění.
+- **Neobsahuje soubory hry.** Nese jen český překlad a postup, jak do fontů
+  doplnit české znaky.
 
-## Známá omezení
+## Časté otázky
 
-- **Bez dabingu.** Zvuk zůstává anglický, překládají se titulky.
-- **Překlad je strojový**, byť dělaný pečlivě a s jednotným glosářem herních
-  termínů. Když narazíš na kostrbatou formulaci, [otevři issue](https://github.com/ItsEmilyJpg/prototype-cz/issues).
-- Testováno na Steam verzi. Jiné verze (GOG, krabice) by měly fungovat, pokud mají
-  stejný formát souborů, ale vyzkoušené nebyly. Když instalátor na tvojí verzi
-  skončí chybou, nic nezapíše — [pošli nám hlášku](https://github.com/ItsEmilyJpg/prototype-cz/issues).
+<details>
+<summary><b>Windows hlásí „Systém Windows ochránil váš počítač“</b></summary>
 
-## Open source
+Instalátor není digitálně podepsaný, proto ho SmartScreen nezná. Klikni na
+**Další informace → Přesto spustit**. Zdrojový kód je v tomhle repozitáři a
+instalátor si můžeš [sestavit sám](#sestavení-ze-zdrojáku).
+</details>
 
-| složka | co tam je | licence |
+<details>
+<summary><b>Mám hru z GOGu nebo z krabice</b></summary>
+
+Vyber složku hry přes **Procházet…**. Pokud má tvoje verze stejný formát
+souborů, čeština se nainstaluje. Když ne, instalátor skončí hláškou a nic
+nezmění — [dej nám vědět](https://github.com/ItsEmilyJpg/prototype-cz/issues)
+i s tím, co napsal. Testováno je zatím jen na Steamu.
+</details>
+
+<details>
+<summary><b>Steam hru aktualizoval a čeština zmizela</b></summary>
+
+Aktualizace přepíše soubory zpátky na anglické. Stačí znovu spustit instalátor —
+pozná, co už přeložené je, a doplní jen zbytek.
+</details>
+
+<details>
+<summary><b>Můžu použít Vortex nebo jiný správce modů?</b></summary>
+
+Ne. Čeština upravuje existující soubory hry, nepřidává nové. Použij instalátor.
+</details>
+
+<details>
+<summary><b>Jak vznikl překlad?</b></summary>
+
+Formáty hry (P3D textbible, titulky u zvuků, Scaleform fonty) byly zpětně
+rozebrány od nuly. Překlad vznikl s pomocí AI, s jednotným glosářem herních
+termínů a kontrolou ve hře. Když narazíš na kostrbatou větu, pošli
+[issue](https://github.com/ItsEmilyJpg/prototype-cz/issues) — oprava je
+otázka jednoho řádku.
+</details>
+
+## Pro přispěvatele
+
+| složka | obsah | licence |
 |---|---|---|
-| [`preklad/`](preklad/) | celý český překlad jako čitelné tabulky | CC BY-NC-SA 4.0 |
-| [`instalator/`](instalator/) | zdroják instalátoru (C#) | MIT |
+| [`preklad/`](preklad/) | celý český překlad jako čitelné tabulky ([formát](preklad/README.md)) | CC BY-NC-SA 4.0 |
+| [`instalator/`](instalator/) | zdrojový kód instalátoru (C#, .NET Framework 4) | MIT |
+| [`sestavit.ps1`](sestavit.ps1) | sestavení instalátoru | MIT |
 
-**Našel/našla jsi chybu v překladu?** Vyhledej větu v [`preklad/`](preklad/),
-oprav ji a pošli pull request, nebo [otevři issue](https://github.com/ItsEmilyJpg/prototype-cz/issues).
-Formát je popsaný v [`preklad/README.md`](preklad/README.md).
+**Oprava překladu:** najdi větu v `preklad/*.tsv`, uprav třetí sloupec a pošli
+pull request nebo issue.
 
-**Chceš si instalátor sestavit sám/sama?** Stačí Windows, nic se neinstaluje:
+### Sestavení ze zdrojáku
+
+Stačí Windows 10 nebo 11, nic se neinstaluje — kompilátor je součástí .NET Frameworku:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File sestavit.ps1
 ```
 
-Vznikne `Cestina-do-Prototype.exe` se stejným překladem jako ve vydání.
+<details>
+<summary><b>English</b></summary>
 
-## Neobsahuje soubory hry
+Complete Czech translation of **Prototype** (2009, Steam): menus, HUD, missions,
+cutscenes, Web of Intrigue videos and subtitles for every spoken line, with Czech
+characters added to the game fonts.
 
-Instalátor nese jen texty překladu a postup, jak do fontů doplnit české znaky,
-a aplikuje je na tvoji vlastní, legálně nabytou kopii hry. Nic z majetku
-Activisionu se tu nešíří.
+Download [Cestina-do-Prototype.exe](https://github.com/ItsEmilyJpg/prototype-cz/releases/latest/download/Cestina-do-Prototype.exe),
+close the game, run it and click **Nainstalovat** (Install). The game language must
+be set to English. Originals are backed up; **Odinstalovat** (Uninstall) restores them.
+The repository contains no game files — only the Czech texts (CC BY-NC-SA 4.0)
+and the installer source (MIT).
+</details>
 
 ---
 
-Prototype je ochranná známka Activision Publishing, Inc. Tenhle projekt
-s Activisionem ani Radical Entertainment nijak nesouvisí.
+<sub>Prototype je ochranná známka Activision Publishing, Inc. Tenhle fanouškovský
+projekt s Activisionem ani Radical Entertainment nijak nesouvisí a je určený
+hráčům, kteří hru legálně vlastní.</sub>
