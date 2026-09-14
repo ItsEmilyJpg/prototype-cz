@@ -73,6 +73,25 @@ instalátor — pozná, co už přeložené je, a nesahá na to zbytečně.
   stejný formát souborů, ale vyzkoušené nebyly. Když instalátor na tvojí verzi
   skončí chybou, nic nezapíše — [pošli nám hlášku](https://github.com/ItsEmilyJpg/prototype-cz/issues).
 
+## Open source
+
+| složka | co tam je | licence |
+|---|---|---|
+| [`preklad/`](preklad/) | celý český překlad jako čitelné tabulky | CC BY-NC-SA 4.0 |
+| [`instalator/`](instalator/) | zdroják instalátoru (C#) | MIT |
+
+**Našel/našla jsi chybu v překladu?** Vyhledej větu v [`preklad/`](preklad/),
+oprav ji a pošli pull request, nebo [otevři issue](https://github.com/ItsEmilyJpg/prototype-cz/issues).
+Formát je popsaný v [`preklad/README.md`](preklad/README.md).
+
+**Chceš si instalátor sestavit sám/sama?** Stačí Windows, nic se neinstaluje:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File sestavit.ps1
+```
+
+Vznikne `Cestina-do-Prototype.exe` se stejným překladem jako ve vydání.
+
 ## Neobsahuje soubory hry
 
 Instalátor nese jen texty překladu a postup, jak do fontů doplnit české znaky,

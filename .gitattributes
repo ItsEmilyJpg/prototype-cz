@@ -1,0 +1,4 @@
+* text=auto
+*.tsv -text
+*.cs  text eol=crlf
+*.ps1 text eol=crlf
